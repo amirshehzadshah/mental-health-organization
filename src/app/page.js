@@ -8,10 +8,10 @@ export default function App() {
   return (
     <>
       <HomePage />
-      <AboutPage />
+      {/* <AboutPage />
       <SciencePage />
       <BenefitsPage />
-      <PricingPage />
+      <PricingPage /> */}
     </>
   );
 }
