@@ -6,17 +6,8 @@ import logoDark from '../../assets/Mental-Health-Logo-dark.png'; // Import dark 
 import Button from './Button'
 import { handleLogin } from '@/utils/login'
 import Image from 'next/image';
-
-const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'Science', href: '#', current: false },
-  { name: 'Benefits', href: '#', current: false },
-  { name: 'Pricing', href: '#', current: false },
-]
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+import { navigation } from '@/data/navigation';
+import { classNames } from '@/utils/classNames';
 
 export default function Header() {
 
@@ -58,7 +49,7 @@ export default function Header() {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
               <Image src={logo} alt='logo' className="h-10 w-auto" />
-              <p className="font-semibold text-sm sm:text-lg md:text-2xl lg:text-4xl text-center max-w-32 sm:max-w-56 md:max-w-full border">Mental Health Care</p>
+              <p className="font-semibold text-sm sm:text-lg md:text-2xl lg:text-4xl text-center max-w-32 sm:max-w-56 md:max-w-full">Mental Health Care</p>
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex justify-between items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 gap-4">
