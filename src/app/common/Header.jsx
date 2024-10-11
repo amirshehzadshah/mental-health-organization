@@ -8,9 +8,12 @@ import { handleLogin } from '@/utils/login'
 import Image from 'next/image';
 import { navigation } from '@/data/navigation';
 import { classNames } from '@/utils/classNames';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function Header() {
 
+  const pathName = usePathname()
+  
   const [logo, setLogo] = useState(logoLight);
 
   useEffect(() => {
@@ -57,11 +60,11 @@ export default function Header() {
               <div className="flex space-x-4">
                 {navigation.map((item) => (
                   <a
-                    key={item.name}
+                    key={item.id}
                     href={item.href}
                     aria-current={item.current ? 'page' : undefined}
                     className={classNames(
-                      item.current ? 'bg-gray-700 text-white' : 'hover:bg-gray-700 hover:text-white',
+                      pathName === item.current ? 'bg-gray-700 text-white' : 'hover:bg-gray-700 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium',
                     )}
                   >
