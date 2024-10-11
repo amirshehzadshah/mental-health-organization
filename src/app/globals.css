@@ -25,3 +25,23 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Custom */
+
+.border-button {
+  background: linear-gradient(90deg, #dad1ed, #f5b9f8 40%, #73c7ff);
+}
+
+.image-button {
+  background-image: linear-gradient(90deg, #fff4f4ea, #FDD9FF 40%, #B2E0FE);
+}
+
+@media (prefers-color-scheme: dark) {
+  .border-button {
+    background: linear-gradient(90deg, #bdbbc0, #f489f9 40%, #73c7ff);
+  }
+
+  .image-button {
+    background-image: linear-gradient(90deg, #9e83cd8c, #d388d7 40%, #5aafe8);
+  }
+}
