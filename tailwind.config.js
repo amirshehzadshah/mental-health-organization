@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'dark-pastel-blue': '#7c98c0'
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'], // Adding Inter font
