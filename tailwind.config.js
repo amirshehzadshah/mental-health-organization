@@ -11,6 +11,11 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'], // Adding Inter font
+        poppins: ['Poppins', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif']
+      },
     },
   },
   plugins: [],
