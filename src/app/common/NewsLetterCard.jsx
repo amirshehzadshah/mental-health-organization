@@ -23,7 +23,7 @@ export default function NewsletterSubscribe({ heading, desc }) {
     });
 
     return (
-        <div className="bg-white flex flex-col items-center text-white text-center py-10 custom-background shadow-lg">
+        <div className="bg-white bg-cover flex flex-col items-center text-white text-center py-10 custom-background shadow-lg">
             <h2 className="text-4xl text-black font-semibold font-poppins text-center mb-4">
                 {heading}
             </h2>
@@ -36,7 +36,7 @@ export default function NewsletterSubscribe({ heading, desc }) {
             }
             <div className="w-full max-w-[560px] p-6">
                 <form onSubmit={formik.handleSubmit} className="flex items-start max-md:items-center space-x-2 max-md:flex-col max-md:gap-2">
-                    <div className="flex-grow">
+                    <div className="flex flex-col flex-grow items-start">
                         <input
                             id="email"
                             name="email"
