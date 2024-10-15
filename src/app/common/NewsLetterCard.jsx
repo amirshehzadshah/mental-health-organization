@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { handleNewsletterSubscribe } from '@/utils/NewsletterSubscribe';
 
-export default function NewsletterSubscribe() {
+export default function NewsletterSubscribe({ heading, desc }) {
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -23,12 +23,18 @@ export default function NewsletterSubscribe() {
     });
 
     return (
-        <div className="relative w-full flex justify-center items-center my-16 py-20">
-            <div className='absolute bg-white inset-0 bg-center bg-cover bg-no-repeat before:absolute before:-z-10 before:inset-0 before:opacity-90 before:custom-background custom-background overflow-hidden' />
-            <div className="w-full max-w-[560px] p-6 z-0">
-                <h2 className="text-4xl text-black font-semibold font-poppins text-center mb-4">
-                    Subscribe to Our Newsletter
-                </h2>
+        <div className="bg-white flex flex-col items-center text-white text-center py-10 custom-background shadow-lg">
+            <h2 className="text-4xl text-black font-semibold font-poppins text-center mb-4">
+                {heading}
+            </h2>
+            {
+                desc && (
+                    <p className="text-lg mb-6 text-gray-500">
+                        {desc}
+                    </p>
+                )
+            }
+            <div className="w-full max-w-[560px] p-6">
                 <form onSubmit={formik.handleSubmit} className="flex items-start max-md:items-center space-x-2 max-md:flex-col max-md:gap-2">
                     <div className="flex-grow">
                         <input

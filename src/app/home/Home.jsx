@@ -92,7 +92,9 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <NewsletterSubscribe />
+            <div className='py-20'>
+                <NewsletterSubscribe heading='Subscribe to Our Newsletter' desc='' />
+            </div>
         </section>
     );
 }
