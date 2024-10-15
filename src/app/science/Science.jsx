@@ -28,7 +28,7 @@ export default function Science() {
       <div className="px-4 mx-10">
         {
           sciencePosts.map((post, index) => (
-            <div className={`flex flex-col md:flex-row items-center mb-12 gap-6 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+            <div key={index} className={`flex flex-col md:flex-row items-center mb-12 gap-6 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
               <div className="md:w-1/2">
                 <Image
                   src={post.image}
@@ -54,8 +54,8 @@ export default function Science() {
         <h2 className="text-4xl font-poppins font-bold mb-6 z-10 theme-op-color">Recent Research</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 z-10">
           {
-            recentResearch.map((item) => (
-              <div className="border rounded-lg shadow-lg p-6 theme-op-background">
+            recentResearch.map((item, index) => (
+              <div key={index} className="border rounded-lg shadow-lg p-6 theme-op-background">
                 <Image
                   src={item.image}
                   alt={item.name}
