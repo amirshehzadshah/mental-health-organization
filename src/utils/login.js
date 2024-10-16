@@ -1,3 +1,3 @@
 export const handleLogin = () => {
-    alert('hire me');
+    alert('Login');
   };
