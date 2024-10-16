@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer className="footer w-full py-8">
       <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 space-y-10'>
-        <div className='relative flex max-md:gap-4 max-sm:flex-col h-16 items-center justify-between border'>
+        <div className='relative flex max-md:gap-4 max-sm:flex-col h-16 items-center justify-between'>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
               <Image src={logo} alt='logo' className="h-10 w-auto" />
@@ -35,7 +35,7 @@ export default function Footer() {
             ))}
           </div>
         </div>
-        <div className='relative flex gap-4 max-sm:flex-col h-16 items-center justify-between border'>
+        <div className='relative flex gap-4 max-sm:flex-col h-16 items-center justify-between'>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center gap-5">
               <Image src={facebook} alt='logo' className="h-12 w-auto" />
