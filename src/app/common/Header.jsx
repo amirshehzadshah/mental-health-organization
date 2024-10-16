@@ -1,6 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import logo from '../../assets/Mental-Health-logo.png';
+import logo from '../../assets/Mental-Health-Logo.png';
 import Button from './Button'
 import { handleLogin } from '@/utils/login'
 import Image from 'next/image';
@@ -27,7 +27,7 @@ export default function Header() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Image src={logo} alt='logo' className="h-10 w-auto" />
+              <Image src={logo} alt='logo' className="h-10 w-auto" priority/>
               <p className="font-semibold font-poppins text-sm sm:text-lg md:text-2xl lg:text-4xl text-center max-w-32 sm:max-w-56 md:max-w-full">Mental Health Care</p>
             </div>
           </div>
