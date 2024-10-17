@@ -10,7 +10,7 @@ export const doctors = [
     },
     {
       id: 2,
-      name: 'Dr. Harry',
+      name: 'Dr. Samantha Collins',
       rating: 5.0,
       available: true,
       image: require('../assets/doctors/doctor2.jpg'),
@@ -28,7 +28,7 @@ export const doctors = [
     },
     {
       id: 4,
-      name: 'Dr. Sarah Kim',
+      name: 'Dr. Michael Lee',
       rating: 4.8,
       available: true,
       image: require('../assets/doctors/doctor4.jpg'),
@@ -37,7 +37,7 @@ export const doctors = [
     },
     {
       id: 5,
-      name: 'Dr. Raj Patel',
+      name: 'Dr. Clara Hughes',
       rating: 4.7,
       available: true,
       image: require('../assets/doctors/doctor5.jpg'),
@@ -55,7 +55,7 @@ export const doctors = [
     },
     {
       id: 7,
-      name: 'Dr. Michael Lee',
+      name: 'Dr. Sarah Kim',
       rating: 4.6,
       available: false,
       image: require('../assets/doctors/doctor7.jpg'),
@@ -73,7 +73,7 @@ export const doctors = [
     },
     {
       id: 9,
-      name: 'Dr. Ahmed Khan',
+      name: 'Dr. Fiona Wright',
       rating: 4.8,
       available: true,
       image: require('../assets/doctors/doctor9.jpg'),
@@ -82,7 +82,7 @@ export const doctors = [
     },
     {
       id: 10,
-      name: 'Dr. Fiona Wright',
+      name: 'Dr. Ahmed Khan',
       rating: 4.9,
       available: true,
       image: require('../assets/doctors/doctor10.jpg'),

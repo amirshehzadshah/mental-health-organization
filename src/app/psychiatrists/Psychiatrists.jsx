@@ -17,14 +17,13 @@ export default function Psychiatrists() {
   console.log("🕵️‍♂️ > file: Psychiatrists.jsx:17 > Psychiatrists > filteredDoctors:", filteredDoctors);
   return (
     <section className="w-full py-8">
-      {/* Page Title */}
+
       <h2 className="text-3xl font-bold mb-6 text-center">Find Your Psychiatrist</h2>
 
-      {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 px-4 mx-10">
         <input
           type="text"
-          className="border rounded-lg p-2 w-full sm:max-w-md"
+          className="border text-black rounded-lg p-2 w-full sm:max-w-md"
           placeholder="Search by name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
