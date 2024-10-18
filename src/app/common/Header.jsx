@@ -26,10 +26,10 @@ export default function Header() {
             </DisclosureButton>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center">
+            <a className="flex flex-shrink-0 items-center" href='/'>
               <Image src={logo} alt='logo' className="h-10 w-auto" priority/>
               <p className="font-semibold font-poppins text-sm sm:text-lg md:text-2xl lg:text-4xl text-center max-w-32 sm:max-w-56 md:max-w-full">Mental Health Care</p>
-            </div>
+            </a>
           </div>
           <div className="absolute inset-y-0 right-0 flex justify-between items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 gap-4">
             <div className="hidden sm:ml-6 sm:block">

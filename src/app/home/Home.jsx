@@ -1,18 +1,52 @@
-'use client'
+'use client';
 
+import { useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import Button from '../common/Button';
 import { handleLogin } from '@/utils/login';
-import heroImage from '../../assets/Hero-Image.png'
+import heroImage from '../../assets/Hero-Image.png';
 import Image from 'next/image';
 import CompanyLogos from '../common/CompanyLogos';
 import { companies } from '@/data/companies';
 import { doctors } from '@/data/doctors';
 import Link from 'next/link';
 import NewsletterSubscribe from '../common/NewsLetterCard';
+import { handleForm } from '@/utils/handleForm';
+import SubmissionButton from '../common/SubmissionButton';
+import ContactUsForm from '../common/ContactUsForm';
+import AppointmentForm from '../common/AppointmentForm';
+import DetailDialog from '../common/DetailDialog';
 
 export default function Home() {
 
+    const [isContact, setIsContact] = useState(false);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [selectedDoctor, setSelectedDoctor] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [activeTopic, setActiveTopic] = useState({});
+
+
     const featuredDoctors = doctors?.filter((doctor) => doctor.featured && doctor.available).slice(0, 3);
+
+    const openModal = (doctor) => {
+        setSelectedDoctor(doctor);
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+        setSelectedDoctor(null);
+    };
+
+    const openDialog = (topic) => {
+        setActiveTopic(topic);
+        setIsOpen(true);
+    };
+
+    const closeDialog = () => {
+        setIsOpen(false);
+    };
 
     return (
         <section className="home w-full min-h-[calc(100vh-236px)] py-8">
@@ -21,24 +55,29 @@ export default function Home() {
                     <div className='pl-2'>
                         <h2 className="text-4xl font-semibold font-poppins tracking-tight sm:text-6xl">Everyone Deserve to be Happy.</h2>
                         <p className="mt-6 mb-16 text-gray-500 text-lg">
-                            Mental care is company oriented towards Mental Fitness , with the combined power of neuroscience, psychoacoustics CBT, and technology.
+                            Mental care is company oriented towards Mental Fitness, with the combined power of neuroscience, psychoacoustics CBT, and technology.
                         </p>
                         <div className='flex gap-8 max-md:justify-center'>
                             <Button title='Sign In' action={handleLogin} />
-                            <Button title='Contact Us' action={handleLogin} />
+                            <Button title='Contact Us' action={() => setIsContact(true)} />
                         </div>
                     </div>
                     <div className='flex justify-center items-center'>
                         <Image
-                            alt="Walnut card tray with white powder coated steel divider and 3 punchout holes."
+                            alt="Hero Image"
                             src={heroImage}
-                            className="rounded-lg w-full border border-red-600"
+                            className="rounded-lg w-full"
                         />
                     </div>
                 </div>
             </div>
+
+            {isContact && (
+                <ContactUsForm close={() => setIsContact(false)} />
+            )}
+
             <div className='relative flex flex-col justify-center items-center'>
-                <div className='absolute inset-0 h-1/2 bg-center bg-cover bg-no-repeat before:absolute before:-z-0 before:inset-0 before:opacity-90 before:theme-background theme-background bg-blend-color-dodge overflow-hidden' />
+                <div className='absolute inset-0 h-1/2 bg-center bg-cover bg-no-repeat theme-background bg-blend-color-dodge overflow-hidden' />
                 <div className="container mx-auto z-10">
                     <CompanyLogos companies={companies} />
                     <div className="flex flex-col md:flex-row justify-center gap-8 px-4">
@@ -69,8 +108,10 @@ export default function Home() {
                                     </div>
                                     <p className="text-gray-500 text-sm min-h-20">{doctor.description}</p>
                                     <div className='flex md:flex-col lg:flex-row gap-4'>
-                                        <Button title='Book an appointment' action={handleLogin} />
-                                        <button className='theme-background theme-op-color flex justify-center items-center max-sm:px-2 max-sm:py-1 px-4 py-2 rounded-md'>
+                                        <Button title='Book an appointment' action={() => openModal(doctor)} />
+                                        <button
+                                            onClick={() => openDialog(doctor)}
+                                            className='theme-background theme-op-color flex justify-center items-center max-sm:px-2 max-sm:py-1 px-4 py-2 rounded-md'>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                             </svg>
@@ -80,6 +121,14 @@ export default function Home() {
                             </div>
                         ))}
                     </div>
+
+                    {isModalOpen && selectedDoctor && (
+                        <AppointmentForm selectedDoctor={selectedDoctor} close={() => closeModal()} />
+                    )}
+
+                    {isOpen && (
+                        <DetailDialog name={activeTopic.name} image={activeTopic.image} description={activeTopic.description} close={() => closeDialog()} />
+                    )}
 
                     <div className="mt-20 ml-6 flex">
                         <Link href="/psychiatrists" className="flex items-center">

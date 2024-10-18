@@ -14,10 +14,10 @@ export default function Footer() {
       <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 space-y-10'>
         <div className='relative flex max-md:gap-4 max-sm:flex-col h-16 items-center justify-between'>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center">
+            <a className="flex flex-shrink-0 items-center" href='/'>
               <Image src={logo} alt='logo' className="h-10 w-auto" />
               <p className="font-semibold font-poppins text-sm sm:text-lg md:text-2xl lg:text-4xl text-center max-w-32 sm:max-w-56 md:max-w-full">Mental Health Care</p>
-            </div>
+            </a>
           </div>
           <div className="flex space-x-4">
             {navigation.map((item) => (
@@ -38,13 +38,13 @@ export default function Footer() {
         <div className='relative flex gap-4 max-sm:flex-col h-16 items-center justify-between'>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center gap-5">
-              <Image src={facebook} alt='logo' className="h-12 w-auto" />
-              <Image src={instagram} alt='logo' className="h-10 w-auto" />
-              <Image src={twitter} alt='logo' className="h-10 w-auto" />
+              <Image src={facebook} alt='facebook_logo' className="h-12 w-auto" />
+              <Image src={instagram} alt='instagram_logo' className="h-10 w-auto" />
+              <Image src={twitter} alt='twitter_logo' className="h-10 w-auto" />
             </div>
           </div>
           <div className="flex space-x-4">
-            <p>© 2024 Next.js App. All rights reserved.</p>
+            <p>© 2024, All rights reserved.</p>
           </div>
         </div>
       </div>

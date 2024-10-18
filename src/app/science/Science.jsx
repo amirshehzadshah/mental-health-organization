@@ -6,6 +6,7 @@ import { recentResearch } from "@/data/recentResearch";
 import NewsletterSubscribe from "../common/NewsLetterCard";
 import { useState } from "react";
 import { sciencePosts } from "@/data/sciencePosts";
+import DetailDialog from "../common/DetailDialog";
 
 export default function Science() {
 
@@ -79,25 +80,7 @@ export default function Science() {
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-20">
-          <div className="bg-white rounded-lg shadow-lg max-w-md p-6 relative">
-            <h3 className="text-2xl font-bold mb-4">{activeTopic.name}</h3>
-            <Image
-              src={activeTopic.image}
-              alt={activeTopic.name}
-              width={400}
-              height={250}
-              className="rounded-md mb-4 w-full"
-            />
-            <p className="text-gray-500 mb-4">{activeTopic.description}</p>
-            <button
-              className="px-4 py-2 bg-red-500 text-white rounded-lg"
-              onClick={closeDialog}
-            >
-              Close
-            </button>
-          </div>
-        </div>
+        <DetailDialog name={activeTopic.name} image={activeTopic.image} description={activeTopic.description} close={() => closeDialog()} />
       )}
 
       <div className="px-4 mx-10">

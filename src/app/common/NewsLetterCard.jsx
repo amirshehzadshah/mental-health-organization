@@ -1,6 +1,6 @@
+import { handleForm } from '@/utils/handleForm';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { handleNewsletterSubscribe } from '@/utils/NewsletterSubscribe';
 
 export default function NewsletterSubscribe({ heading, desc }) {
     const formik = useFormik({
@@ -17,7 +17,7 @@ export default function NewsletterSubscribe({ heading, desc }) {
                 .required('Required'),
         }),
         onSubmit: (values, { resetForm }) => {
-            handleNewsletterSubscribe(values)
+            handleForm(values)
             resetForm()
         },
     });
@@ -45,7 +45,7 @@ export default function NewsletterSubscribe({ heading, desc }) {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.email}
-                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none ${formik.touched.email && formik.errors.email
+                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none theme-background ${formik.touched.email && formik.errors.email
                                 ? 'border-red-500 focus:ring-red-300'
                                 : 'focus:ring-blue-300'
                                 }`}
