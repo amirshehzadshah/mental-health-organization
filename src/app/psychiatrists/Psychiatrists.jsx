@@ -3,18 +3,43 @@
 import { doctors } from "@/data/doctors";
 import Image from "next/image";
 import Button from "../common/Button";
-import { handleLogin } from "@/utils/login";
 import { useState } from "react";
+import AppointmentForm from "../common/AppointmentForm";
+import DetailDialog from "../common/DetailDialog";
 
 export default function Psychiatrists() {
+
   const [searchQuery, setSearchQuery] = useState('');
   const [availableOnly, setAvailableOnly] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeTopic, setActiveTopic] = useState({});
 
   const filteredDoctors = doctors?.filter((doctor) =>
     doctor.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
     (!availableOnly || doctor.available)
   );
-  console.log("🕵️‍♂️ > file: Psychiatrists.jsx:17 > Psychiatrists > filteredDoctors:", filteredDoctors);
+
+  const openModal = (doctor) => {
+    setSelectedDoctor(doctor);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedDoctor(null);
+  };
+
+  const openDialog = (topic) => {
+    setActiveTopic(topic);
+    setIsOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsOpen(false);
+  };
+
   return (
     <section className="w-full py-8">
 
@@ -48,51 +73,60 @@ export default function Psychiatrists() {
         <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg w-full">Depression</button>
       </div> */}
 
-      {
-        filteredDoctors.length === 0 ?
-          <div className="flex justify-center items-center gap-8 px-4 w-full">
-            No Doctor
-          </div> :
-          <div className="flex flex-wrap justify-center items-center gap-8 px-4">
-            {filteredDoctors?.map((doctor) => (
-              <div key={doctor.id} className="theme-op-background border rounded-lg shadow-2xl px-6 py-8 max-w-sm">
-                <Image
-                  src={doctor.image}
-                  alt={doctor.name}
-                  className="w-full h-48 object-cover rounded-lg"
-                />
-                <div className="gap-y-3 mt-4">
-                  <div className='mr-1 py-1 flex items-center'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="text-yellow-500 -py-1" viewBox="0 0 24 24" fill="currentColor" role="presentation"><path d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"></path></svg>
-                    <span>{doctor.rating}</span>
-                  </div>
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-bold">{doctor.name}</h3>
-                    <div className="flex items-center">
-                      <span
-                        className={`${doctor.available ? '' : 'text-gray-500'} font-poppins ml-2 flex`}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" className={`${doctor.available ? 'text-green-500' : 'text-gray-500'} -py-1`} viewBox="0 0 24 24" fill="currentColor" role="presentation">
-                          <path d="M12 2 C 6.48 2, 2 6.48, 2 12 C 2 17.52, 6.48 22, 12 22 C 17.52 22, 22 17.52, 22 12 C 22 6.48, 17.52 2, 12 2 z" />
-                        </svg>
-                        {doctor.available ? 'Available' : 'Unavailable'}
-                      </span>
-                    </div>
-                  </div>
-                  <p className="text-gray-500 text-sm min-h-20">{doctor.description}</p>
-                  <div className='flex md:flex-col lg:flex-row gap-4'>
-                    <Button title='Book an appointment' action={handleLogin} />
-                    <button className='theme-background theme-op-color flex justify-center items-center max-sm:px-2 max-sm:py-1 px-4 py-2 rounded-md'>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      {filteredDoctors.length === 0 ?
+        <div className="flex justify-center items-center h-screen w-full text-xl font-bold font-poppins">
+          No Doctors Found!
+        </div> :
+        <div className="flex flex-wrap justify-center items-center gap-8 px-4">
+          {filteredDoctors?.map((doctor) => (
+            <div key={doctor.id} className="theme-op-background border rounded-lg shadow-2xl px-6 py-8 max-w-sm">
+              <Image
+                src={doctor.image}
+                alt={doctor.name}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="gap-y-3 mt-4">
+                <div className='mr-1 py-1 flex items-center'>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="text-yellow-500 -py-1" viewBox="0 0 24 24" fill="currentColor" role="presentation"><path d="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"></path></svg>
+                  <span>{doctor.rating}</span>
+                </div>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-lg font-bold">{doctor.name}</h3>
+                  <div className="flex items-center">
+                    <span
+                      className={`${doctor.available ? '' : 'text-gray-500'} font-poppins ml-2 flex`}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" className={`${doctor.available ? 'text-green-500' : 'text-gray-500'} -py-1`} viewBox="0 0 24 24" fill="currentColor" role="presentation">
+                        <path d="M12 2 C 6.48 2, 2 6.48, 2 12 C 2 17.52, 6.48 22, 12 22 C 17.52 22, 22 17.52, 22 12 C 22 6.48, 17.52 2, 12 2 z" />
                       </svg>
-                    </button>
+                      {doctor.available ? 'Available' : 'Unavailable'}
+                    </span>
                   </div>
                 </div>
+                <p className="text-gray-500 text-sm min-h-20">{doctor.description}</p>
+                <div className='flex md:flex-col lg:flex-row gap-4'>
+                  <Button title='Book an appointment' action={() => openModal(doctor)} />
+                  <button
+                    onClick={() => openDialog(doctor)}
+                    className='theme-background theme-op-color flex justify-center items-center max-sm:px-2 max-sm:py-1 px-4 py-2 rounded-md'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
       }
+
+      {isModalOpen && selectedDoctor && (
+        <AppointmentForm selectedDoctor={selectedDoctor} close={() => closeModal()} />
+      )}
+
+      {isOpen && (
+        <DetailDialog name={activeTopic.name} image={activeTopic.image} description={activeTopic.description} close={() => closeDialog()} />
+      )}
 
       <div className="my-20 py-12 bg-white custom-background">
         <div className="container mx-auto px-6 text-center">

@@ -1,6 +1,6 @@
+import { handleForm } from '@/utils/handleForm';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { handleNewsletterSubscribe } from '@/utils/NewsletterSubscribe';
 
 export default function NewsletterSubscribe({ heading, desc }) {
     const formik = useFormik({
@@ -17,7 +17,7 @@ export default function NewsletterSubscribe({ heading, desc }) {
                 .required('Required'),
         }),
         onSubmit: (values, { resetForm }) => {
-            handleNewsletterSubscribe(values)
+            handleForm(values)
             resetForm()
         },
     });
