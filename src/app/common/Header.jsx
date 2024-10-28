@@ -2,22 +2,38 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/Mental-Health-Logo.png';
 import Button from './Button'
-import { handleLogin } from '@/utils/login'
 import Image from 'next/image';
 import { navigation } from '@/data/navigation';
 import { classNames } from '@/utils/classNames';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useLoginState } from '@/context/Login';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
 
   const pathName = usePathname()
+  const { state, openModal, logIn, logOut } = useLoginState()
+
+  const { isLoggedIn } = state;
+
+  useEffect(()=> {
+    const loginKey = sessionStorage.getItem('loginKey');
+    if (loginKey && !isLoggedIn) {
+      logIn()
+    }
+  }, [logIn, isLoggedIn])
   
+const handleLogout = () => {
+  sessionStorage.removeItem('loginKey')
+  logOut()
+}
+
   return (
     <Disclosure as="nav" className="w-full my-2">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            {/* Mobile menu button*/}
+            {/* Mobile menu button */}
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-dark-pastel-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
@@ -27,7 +43,7 @@ export default function Header() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <a className="flex flex-shrink-0 items-center" href='/'>
-              <Image src={logo} alt='logo' className="h-10 w-auto" priority/>
+              <Image src={logo} alt='logo' className="h-10 w-auto" priority />
               <p className="font-semibold font-poppins text-sm sm:text-lg md:text-2xl lg:text-4xl text-center max-w-32 sm:max-w-56 md:max-w-full">Mental Health Care</p>
             </a>
           </div>
@@ -49,7 +65,13 @@ export default function Header() {
                 ))}
               </div>
             </div>
-            <Button title='Sign In' action={handleLogin} />
+            {
+              !isLoggedIn ? (
+                <Button title='Sign In' action={openModal} />
+              ) : (
+                <Button title='logout' action={handleLogout}/>
+              )
+            }
 
             {/* Profile dropdown */}
             {/* <Menu as="div" className="relative ml-3">

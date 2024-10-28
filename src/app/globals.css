@@ -30,6 +30,10 @@ body {
 
 /* Custom */
 
+* > input, * > textarea, * > input::before, * > input::after{
+  border-color: #0a0a0a;
+}
+
 .border-button {
   background: linear-gradient(90deg, #dad1ed, #f5b9f8 40%, #73c7ff);
 }

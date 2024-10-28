@@ -62,12 +62,12 @@ export default function Benefits() {
       </div>
 
       <div className="relative flex flex-col text-center mb-12 py-16">
-        <div className='absolute inset-0 h-2/3 bg-center bg-cover bg-no-repeat before:absolute before:-z-0 before:inset-0 before:opacity-90 before:theme-background theme-background bg-blend-color-dodge overflow-hidden' />
-        <h2 className="theme-op-color text-3xl font-bold mb-4 z-10">How It Works</h2>
-        <p className="text-gray-500 mb-16 z-10">
+        <div className='absolute inset-0 -z-10 h-2/3 bg-center bg-cover bg-no-repeat before:absolute before:-z-10 before:inset-0 before:opacity-90 before:theme-background theme-background bg-blend-color-dodge overflow-hidden' />
+        <h2 className="theme-op-color text-3xl font-bold mb-4">How It Works</h2>
+        <p className="text-gray-500 mb-16">
           Discover how easy it is to get started with our platform.
         </p>
-        <div className="flex flex-wrap justify-center gap-8 z-10">
+        <div className="flex flex-wrap justify-center gap-8">
           {
             steps.map((item) => (
               <div key={item.id} className="theme-op-background border rounded-lg shadow-lg p-6 max-w-xs">

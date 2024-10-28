@@ -51,9 +51,9 @@ export default function Science() {
       </div>
 
       <div className="relative flex flex-col px-16 py-8">
-        <div className='absolute inset-0 h-1/2 bg-center bg-cover bg-no-repeat before:absolute before:-z-0 before:inset-0 before:opacity-90 before:theme-background theme-background bg-blend-color-dodge overflow-hidden' />
-        <h2 className="text-4xl font-poppins font-bold mb-6 z-10 theme-op-color">Recent Research</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 z-10">
+        <div className='absolute -z-10 inset-0 h-1/2 bg-center bg-cover bg-no-repeat before:absolute before:-z-10 before:inset-0 before:opacity-90 before:theme-background theme-background bg-blend-color-dodge overflow-hidden' />
+        <h2 className="text-4xl font-poppins font-bold mb-6 theme-op-color">Recent Research</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {
             recentResearch.map((item, index) => (
               <div key={index} className="border rounded-lg shadow-lg p-6 theme-op-background">

@@ -1,10 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { useEffect, useState } from 'react';
 import Button from '../common/Button';
-import { handleLogin } from '@/utils/login';
 import heroImage from '../../assets/Hero-Image.png';
 import Image from 'next/image';
 import CompanyLogos from '../common/CompanyLogos';
@@ -12,29 +9,33 @@ import { companies } from '@/data/companies';
 import { doctors } from '@/data/doctors';
 import Link from 'next/link';
 import NewsletterSubscribe from '../common/NewsLetterCard';
-import { handleForm } from '@/utils/handleForm';
-import SubmissionButton from '../common/SubmissionButton';
 import ContactUsForm from '../common/ContactUsForm';
 import AppointmentForm from '../common/AppointmentForm';
 import DetailDialog from '../common/DetailDialog';
+import LoginRegisterModal from '../common/LoginRegisterModal';
+import { useLoginState } from '@/context/Login';
 
 export default function Home() {
 
+    const { state, openModal, closeModal, logIn } = useLoginState();
+
+    const { isLoggedIn } = state
+
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isContact, setIsContact] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [activeTopic, setActiveTopic] = useState({});
 
-
     const featuredDoctors = doctors?.filter((doctor) => doctor.featured && doctor.available).slice(0, 3);
 
-    const openModal = (doctor) => {
+    const openModalDoctor = (doctor) => {
         setSelectedDoctor(doctor);
         setModalOpen(true);
     };
 
-    const closeModal = () => {
+    const closeModalDoctor = () => {
         setModalOpen(false);
         setSelectedDoctor(null);
     };
@@ -48,6 +49,13 @@ export default function Home() {
         setIsOpen(false);
     };
 
+    useEffect(() => {
+        const loginKey = sessionStorage.getItem('loginKey');
+        if (loginKey && !isLoggedIn) {
+            logIn()
+        }
+    }, [logIn, isLoggedIn])
+
     return (
         <section className="home w-full min-h-[calc(100vh-236px)] py-8">
             <div className='flex flex-grow justify-center items-center mt-14 mb-32'>
@@ -58,7 +66,11 @@ export default function Home() {
                             Mental care is company oriented towards Mental Fitness, with the combined power of neuroscience, psychoacoustics CBT, and technology.
                         </p>
                         <div className='flex gap-8 max-md:justify-center'>
-                            <Button title='Sign In' action={handleLogin} />
+                            {
+                                !isLoggedIn && (
+                                    <Button title='Sign In' action={openModal} />
+                                )
+                            }
                             <Button title='Contact Us' action={() => setIsContact(true)} />
                         </div>
                     </div>
@@ -67,6 +79,7 @@ export default function Home() {
                             alt="Hero Image"
                             src={heroImage}
                             className="rounded-lg w-full"
+                            priority
                         />
                     </div>
                 </div>
@@ -77,8 +90,8 @@ export default function Home() {
             )}
 
             <div className='relative flex flex-col justify-center items-center'>
-                <div className='absolute inset-0 h-1/2 bg-center bg-cover bg-no-repeat theme-background bg-blend-color-dodge overflow-hidden' />
-                <div className="container mx-auto z-10">
+                <div className='absolute -z-10 inset-0 h-1/2 bg-center bg-cover bg-no-repeat theme-background bg-blend-color-dodge overflow-hidden' />
+                <div className="container mx-auto">
                     <CompanyLogos companies={companies} />
                     <div className="flex flex-col md:flex-row justify-center gap-8 px-4">
                         {featuredDoctors?.map((doctor) => (
@@ -108,7 +121,7 @@ export default function Home() {
                                     </div>
                                     <p className="text-gray-500 text-sm min-h-20">{doctor.description}</p>
                                     <div className='flex md:flex-col lg:flex-row gap-4'>
-                                        <Button title='Book an appointment' action={() => openModal(doctor)} />
+                                        <Button title='Book an appointment' action={() => openModalDoctor(doctor)} />
                                         <button
                                             onClick={() => openDialog(doctor)}
                                             className='theme-background theme-op-color flex justify-center items-center max-sm:px-2 max-sm:py-1 px-4 py-2 rounded-md'>
@@ -123,7 +136,7 @@ export default function Home() {
                     </div>
 
                     {isModalOpen && selectedDoctor && (
-                        <AppointmentForm selectedDoctor={selectedDoctor} close={() => closeModal()} />
+                        <AppointmentForm selectedDoctor={selectedDoctor} close={() => closeModalDoctor()} />
                     )}
 
                     {isOpen && (
@@ -144,6 +157,14 @@ export default function Home() {
             <div className='py-20'>
                 <NewsletterSubscribe heading='Subscribe to Our Newsletter' desc='' />
             </div>
+
+            {
+                state.isModalOpen &&
+                <LoginRegisterModal
+                    isOpen={state}
+                    onClose={closeModal}
+                />
+            }
         </section>
     );
 }
