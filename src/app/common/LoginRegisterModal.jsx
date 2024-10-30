@@ -39,8 +39,8 @@ export default function LoginRegisterModal({ isOpen, onClose }) {
         
         if (storedUser && storedUser.email === values.email && storedUser.password === values.password) {
             console.log('Logged in:', values);
-            const loginKey = generateLoginKey(); // Generate a new login key
-            sessionStorage.setItem('loginKey', loginKey); // Store the login key in session storage
+            const loginKey = generateLoginKey();
+            sessionStorage.setItem('loginKey', loginKey);
             onClose();
         } else {
             setErrorMessage('Invalid credentials');
@@ -116,7 +116,7 @@ export default function LoginRegisterModal({ isOpen, onClose }) {
                             className="text-sm text-indigo-500 hover:underline"
                             onClick={() => {
                                 setIsLogin(!isLogin);
-                                setErrorMessage(''); // Clear error message on toggle
+                                setErrorMessage('');
                             }}
                         >
                             {isLogin ? 'Create an account' : 'Already have an account? Log in'}

@@ -8,8 +8,6 @@ export default function DetailDialog({name, image, description, close}) {
                 <Image
                     src={image}
                     alt={name}
-                    // width={400}
-                    // height={250}
                     className="rounded-md mb-4 w-full h-auto"
                     priority
                 />

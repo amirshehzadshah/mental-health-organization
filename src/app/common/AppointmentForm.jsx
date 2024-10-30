@@ -21,8 +21,6 @@ export default function AppointmentForm({ selectedDoctor, close}) {
         },
         validationSchema: validationSchema,
         onSubmit: (values, { resetForm }) => {
-            // Handle form submission
-            // console.log("Form submitted for:", selectedDoctor.name, values);
             const data = [selectedDoctor, values];
             handleForm(data)
             resetForm();

@@ -19,7 +19,7 @@ export default function ContactUsForm({ close }) {
         onSubmit: (values, { resetForm }) => {
             handleForm(values)
             resetForm();
-            close(); // Close modal after submission
+            close();
         },
     });
 

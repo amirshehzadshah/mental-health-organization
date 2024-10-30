@@ -25,10 +25,7 @@ export default function Footer() {
                 key={item.name}
                 href={item.href}
                 aria-current={item.current ? 'page' : undefined}
-                className={classNames(
-                  // item.current ? 'bg-gray-700 text-white' : 'hover:bg-gray-700 hover:text-white',
-                  'rounded-md pl-3 py-2 text-sm font-medium',
-                )}
+                className={classNames('rounded-md pl-3 py-2 text-sm font-medium',)}
               >
                 {item.name}
               </a>

@@ -1,7 +1,6 @@
 'use client';
 
 import { plans } from "@/data/pricingPlans";
-import Lottie from "lottie-react"; // If you plan to use Lottie animations
 import NewsletterSubscribe from "../common/NewsLetterCard";
 import Button from "../common/Button";
 
@@ -66,7 +65,7 @@ export default function Pricing() {
               </tr>
             </thead>
             <tbody>
-              {plans[0].features.map((feature, index) => (
+              {plans[2].features.map((feature, index) => (
                 <tr key={index}>
                   <td className="border px-4 py-2">{feature}</td>
                   {plans.map(plan => (

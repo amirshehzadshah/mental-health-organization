@@ -21,7 +21,6 @@ export default function Home() {
 
     const { isLoggedIn } = state
 
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isContact, setIsContact] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -154,12 +153,12 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
             <div className='py-20'>
                 <NewsletterSubscribe heading='Subscribe to Our Newsletter' desc='' />
             </div>
 
-            {
-                state.isModalOpen &&
+            {state.isModalOpen &&
                 <LoginRegisterModal
                     isOpen={state}
                     onClose={closeModal}

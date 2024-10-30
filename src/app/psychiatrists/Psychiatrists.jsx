@@ -163,7 +163,6 @@ export default function Psychiatrists() {
           </div>
         </div> */}
 
-
     </section>
   );
 };
