@@ -5,6 +5,7 @@ import NewsletterSubscribe from "../common/NewsLetterCard";
 import Button from "../common/Button";
 import { useRouter } from 'next/navigation';
 import { useLoginState } from "@/context/Login";
+import LoginRegisterModal from "../common/LoginRegisterModal";
 
 export default function Pricing() {
 

@@ -10,13 +10,17 @@ import Lottie from 'lottie-react';
 import paymentSuccessful from '../../../assets/Payment-Animation/successfully.json'
 import { useLoginState } from '@/context/Login';
 import LoginRegisterModal from '@/app/common/LoginRegisterModal';
+import Button from '@/app/common/Button';
 
 export default function Payment() {
 
-    const { state, closeModal } = useLoginState();
+    const { state, openModal, closeModal } = useLoginState();
     const searchParams = useSearchParams();
     const planId = searchParams.get('planId');
     const router = useRouter();
+
+    const { isLoggedIn } = state
+    console.log("🕵️‍♂️ > file: Payment.jsx:20 > Payment > isLoggedIn:", isLoggedIn);
 
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
@@ -94,9 +98,24 @@ export default function Payment() {
             .slice(0, 5); // Limit to 5 characters (MM/YY)
     };
 
+    if (isLoggedIn === false) {
+        return (
+          <div className="min-h-screen flex flex-col items-center justify-center py-12">
+            <div className="max-w-md w-full space-y-8 p-10 bg-white shadow-lg rounded-lg text-center">
+              <h2 className="text-3xl font-extrabold text-gray-900">
+              Please Sign In
+              </h2>
+              <p className="mt-2 text-sm text-gray-600">
+              It looks like you haven't signed in yet. Please sign in to proceed.
+              </p>
+              <Button title='Sign In' action={openModal} />
+            </div>
+          </div>
+        );
+      }
     if (!planId) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center py-12 bg-gray-100">
+            <div className="min-h-screen flex flex-col items-center justify-center py-12">
                 <div className="max-w-md w-full space-y-8 p-10 bg-white shadow-lg rounded-lg text-center">
                     <h2 className="text-3xl font-extrabold text-gray-900">
                         Please Choose a Plan
@@ -104,12 +123,7 @@ export default function Payment() {
                     <p className="mt-2 text-sm text-gray-600">
                         It looks like you haven't selected a plan yet. Please choose a plan to proceed with payment.
                     </p>
-                    <button
-                        onClick={() => router.push('/pricing')}
-                        className="mt-4 px-4 py-2 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700"
-                    >
-                        Go to Pricing
-                    </button>
+                    <Button title='Go To Pricing' action={() => router.push('/pricing')} />
                 </div>
             </div>
         );
