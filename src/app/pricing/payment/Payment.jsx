@@ -19,8 +19,7 @@ export default function Payment() {
     const planId = searchParams.get('planId');
     const router = useRouter();
 
-    const { isLoggedIn } = state
-    console.log("🕵️‍♂️ > file: Payment.jsx:20 > Payment > isLoggedIn:", isLoggedIn);
+    const { isLoggedIn } = state;
 
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
@@ -68,8 +67,6 @@ export default function Payment() {
         validationSchema,
         onSubmit: (values) => {
             console.log('Form values:', values);
-
-            // Show success popup
             setShowSuccessPopup(true);
 
             // After a delay, redirect back to pricing page
@@ -130,7 +127,7 @@ export default function Payment() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center py-12">
+        <section className="min-h-screen flex flex-col items-center justify-center py-12">
             <div className="max-w-md w-full space-y-8 p-10 bg-white shadow-lg rounded-lg">
                 <div>
                     <h2 className="text-center text-black text-2xl font-poppins font-bold mb-4">
@@ -141,7 +138,6 @@ export default function Payment() {
                     </p>
                 </div>
 
-                {/* Formik Form */}
                 <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}>
                     <div className="rounded-md shadow-sm">
 
@@ -259,6 +255,6 @@ export default function Payment() {
                 />
             }
 
-        </div>
+        </section>
     );
 }
