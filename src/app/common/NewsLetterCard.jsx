@@ -12,7 +12,7 @@ export default function NewsletterSubscribe({ heading, desc }) {
                 .email('Invalid email address')
                 .matches(
                     /^[a-zA-Z0-9._%+-]+@(gmail|outlook|hotmail|live|yahoo|protonmail|icloud|yandex|zoho|gmx|tutanota|rediffmail|mail|fastmail|qq|163)\.com|(yandex|mail)\.ru|(gmx|web)\.de|(laposte)\.net|(laposte|orange)\.fr$/,
-                    'Temporary accounts are allowed'
+                    'Temporary accounts are not allowed'
                 )
                 .required('Required'),
         }),
