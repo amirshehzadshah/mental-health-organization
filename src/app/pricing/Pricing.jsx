@@ -3,11 +3,18 @@
 import { plans } from "@/data/pricingPlans";
 import NewsletterSubscribe from "../common/NewsLetterCard";
 import Button from "../common/Button";
+import { useRouter } from 'next/navigation';
 
 export default function Pricing() {
+  const router = useRouter();
+
+  // Handler to navigate to the payment page with the selected plan
+  const handleChoosePlan = (planId) => {
+    router.push(`/pricing/payment?planId=${planId}`);
+  };
+
   return (
     <section className="pricing w-full py-12">
-
       <div className="text-center mb-32">
         <h1 className="text-5xl font-poppins font-bold">Affordable Mental Health Plans</h1>
         <p className="mt-4 text-lg text-gray-500">
@@ -38,7 +45,7 @@ export default function Pricing() {
                   >
                     <path
                       fillRule="evenodd"
-                      d="M16.707 4.293a1 1 0 00-1.414 0L9 10.586 5.707 7.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l7-7a1 1 0 000-1.414z"
+                      d="M16.707 4.293a1 1 0 00-1.414 0L9 10.586 5.707 7.293a1 1 0 00-1.414 1.414l4 4a 1 1 0 001.414 0l7-7a1 1 0 000-1.414z"
                       clipRule="evenodd"
                     />
                   </svg>
@@ -47,7 +54,7 @@ export default function Pricing() {
               ))}
             </ul>
 
-            <Button title="Choose Plan" />
+            <Button title="Choose Plan" action={() => handleChoosePlan(plan.id)} />
           </div>
         ))}
       </div>
