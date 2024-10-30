@@ -7,8 +7,12 @@ import NewsletterSubscribe from "../common/NewsLetterCard";
 import { useState } from "react";
 import { sciencePosts } from "@/data/sciencePosts";
 import DetailDialog from "../common/DetailDialog";
+import { useLoginState } from "@/context/Login";
+import LoginRegisterModal from "../common/LoginRegisterModal";
 
 export default function Science() {
+
+  const { state, closeModal } = useLoginState();
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeTopic, setActiveTopic] = useState({});
@@ -99,6 +103,14 @@ export default function Science() {
       </div>
 
       <NewsletterSubscribe heading='Want to Stay Updated?' desc='Subscribe to our newsletter to receive the latest science updates, research findings, and innovations.' />
+
+      {state.isModalOpen &&
+        <LoginRegisterModal
+          isOpen={state}
+          onClose={closeModal}
+        />
+      }
+
     </section>
   );
 }

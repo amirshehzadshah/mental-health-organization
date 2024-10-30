@@ -8,20 +8,25 @@ import NewsletterSubscribe from "../common/NewsLetterCard";
 import { detailedBenefits } from "@/data/detailedBenefits";
 import { steps } from "@/data/steps";
 import Anchor from "../common/Link";
+import { useLoginState } from "@/context/Login";
+import LoginRegisterModal from "../common/LoginRegisterModal";
 
 export default function Benefits() {
+
+  const { state, closeModal } = useLoginState();
+
   return (
     <section className="benefits py-12">
 
       <div className="text-center mb-12">
         <div className="pb-10">
-        <h1 className="text-5xl font-poppins font-bold">Unlock the Power of Our Platform</h1>
-        <p className="mt-4 text-lg text-gray-500">
-          Discover how our solution can benefit you in ways you never imagined.
-        </p>
-        <div className="my-8">
-          <Anchor title='Get Started Today' action='/pricing' />
-        </div>
+          <h1 className="text-5xl font-poppins font-bold">Unlock the Power of Our Platform</h1>
+          <p className="mt-4 text-lg text-gray-500">
+            Discover how our solution can benefit you in ways you never imagined.
+          </p>
+          <div className="my-8">
+            <Anchor title='Get Started Today' action='/pricing' />
+          </div>
         </div>
         <div className="mt-8">
           <Image
@@ -80,6 +85,14 @@ export default function Benefits() {
       </div>
 
       <NewsletterSubscribe heading='Stay Updated with Our Newsletter' desc='Subscribe to our newsletter and never miss out on our latest updates and offers.' />
+
+      {state.isModalOpen &&
+        <LoginRegisterModal
+          isOpen={state}
+          onClose={closeModal}
+        />
+      }
+
     </section>
   );
 }

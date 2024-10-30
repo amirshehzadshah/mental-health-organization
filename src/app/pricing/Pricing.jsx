@@ -4,8 +4,11 @@ import { plans } from "@/data/pricingPlans";
 import NewsletterSubscribe from "../common/NewsLetterCard";
 import Button from "../common/Button";
 import { useRouter } from 'next/navigation';
+import { useLoginState } from "@/context/Login";
 
 export default function Pricing() {
+
+  const { state, closeModal } = useLoginState();
   const router = useRouter();
 
   // Handler to navigate to the payment page with the selected plan
@@ -88,6 +91,14 @@ export default function Pricing() {
       </section>
 
       <NewsletterSubscribe heading='Subscribe to Our Newsletter' desc='Stay updated with the latest mental health resources, tips, and exclusive offers.' />
+
+      {state.isModalOpen &&
+        <LoginRegisterModal
+          isOpen={state}
+          onClose={closeModal}
+        />
+      }
+
     </section>
   );
 }

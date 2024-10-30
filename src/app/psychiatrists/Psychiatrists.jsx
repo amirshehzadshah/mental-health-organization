@@ -6,8 +6,12 @@ import Button from "../common/Button";
 import { useState } from "react";
 import AppointmentForm from "../common/AppointmentForm";
 import DetailDialog from "../common/DetailDialog";
+import { useLoginState } from "@/context/Login";
+import LoginRegisterModal from "../common/LoginRegisterModal";
 
 export default function Psychiatrists() {
+
+  const { state, closeModal } = useLoginState();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [availableOnly, setAvailableOnly] = useState(false);
@@ -21,12 +25,12 @@ export default function Psychiatrists() {
     (!availableOnly || doctor.available)
   );
 
-  const openModal = (doctor) => {
+  const openAppointmentModal = (doctor) => {
     setSelectedDoctor(doctor);
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeAppointmentModal = () => {
     setIsModalOpen(false);
     setSelectedDoctor(null);
   };
@@ -105,7 +109,7 @@ export default function Psychiatrists() {
                 </div>
                 <p className="text-gray-500 text-sm min-h-20">{doctor.description}</p>
                 <div className='flex md:flex-col lg:flex-row gap-4'>
-                  <Button title='Book an appointment' action={() => openModal(doctor)} />
+                  <Button title='Book an appointment' action={() => openAppointmentModal(doctor)} />
                   <button
                     onClick={() => openDialog(doctor)}
                     className='theme-background theme-op-color flex justify-center items-center max-sm:px-2 max-sm:py-1 px-4 py-2 rounded-md'>
@@ -121,7 +125,7 @@ export default function Psychiatrists() {
       }
 
       {isModalOpen && selectedDoctor && (
-        <AppointmentForm selectedDoctor={selectedDoctor} close={() => closeModal()} />
+        <AppointmentForm selectedDoctor={selectedDoctor} close={() => closeAppointmentModal()} />
       )}
 
       {isOpen && (
@@ -162,6 +166,13 @@ export default function Psychiatrists() {
             </div>
           </div>
         </div> */}
+
+      {state.isModalOpen &&
+        <LoginRegisterModal
+          isOpen={state}
+          onClose={closeModal}
+        />
+      }
 
     </section>
   );
