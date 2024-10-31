@@ -27,11 +27,12 @@ export default function LoginRegisterModal({ isOpen, onClose }) {
             .required('Email is required'),
             password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
         }),
-        onSubmit: (values) => {
+        onSubmit: (values, { resetForm }) => {
             if (isLogin) {
                 handleLogin(values);
             } else {
                 handleRegister(values);
+                resetForm();
             }
         },
     });
@@ -41,9 +42,10 @@ export default function LoginRegisterModal({ isOpen, onClose }) {
     };
 
     const handleLogin = (values) => {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const storedUser = users.find(user => user.email === values.email && user.password === values.password);
         
-        if (storedUser && storedUser.email === values.email && storedUser.password === values.password) {
+        if (storedUser) {
             console.log('Logged in:', values);
             const loginKey = generateLoginKey();
             sessionStorage.setItem('loginKey', loginKey);
@@ -54,13 +56,30 @@ export default function LoginRegisterModal({ isOpen, onClose }) {
     };
 
     const handleRegister = (values) => {
-        localStorage.setItem('user', JSON.stringify({
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        const emailExists = users.some(user => user.email === values.email);
+        const usernameExists = users.some(user => user.name === values.name);
+
+        if (emailExists) {
+            setErrorMessage('Email address already exists');
+            return;
+        }
+
+        if (usernameExists) {
+            setErrorMessage('Username already exists');
+            return;
+        }
+
+        users.push({
             name: values.name,
             email: values.email,
             password: values.password,
-        }));
+        });
+
+        localStorage.setItem('users', JSON.stringify(users));
         console.log('Registered:', values);
-        onClose();
+        setIsLogin(!isLogin);
     };
 
     if (!isOpen) return null;
